@@ -11,7 +11,7 @@ def show_chart(x, y, stock_name):
 
 stock_code = "600848"
 
-df = pandas.read_excel("stock_data.xlsx")
+df = pandas.read_excel("colab/stock_data.xlsx")
 
 date = []
 algorithm_key = []
