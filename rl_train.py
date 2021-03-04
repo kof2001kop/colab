@@ -1,4 +1,4 @@
 import torch
 
-x = torch.zeros(5, 3)
-print(x)
+c = torch.tensor([1, 2, 3, 4])
+print (c[1].item())
