@@ -70,8 +70,9 @@ if __name__ == '__main__':
     print(env.state)
     env.step(env.action_space.sample())
     print(env.state)
-    
-env = gym.make('CartPole-v0')
+
+#調用強化學習庫  
+#env = gym.make('Car2DEnv')
 for i_episode in range(20):
     observation = env.reset()
     for t in range(100):
