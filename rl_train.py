@@ -2,7 +2,7 @@
 import gym
 from gym import spaces
 import numpy as np
-from keras.models import Sequential
+#from keras.models import Sequential
 
 class kpr_stock(gym.Env):
     
@@ -86,6 +86,7 @@ class kpr_stock(gym.Env):
 
 
 #調用強化學習庫  
+gym.logger.set_level(40)
 env = kpr_stock()
 for i_episode in range(100):
     observation = env.reset()
