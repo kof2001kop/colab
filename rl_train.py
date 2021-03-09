@@ -87,7 +87,7 @@ class kpr_stock(gym.Env):
 
 #調用強化學習庫  
 env = kpr_stock()
-for i_episode in range(1000):
+for i_episode in range(100):
     observation = env.reset()
     for t in range(30):
         #print(observation)
