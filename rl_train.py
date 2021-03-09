@@ -2,6 +2,7 @@
 import gym
 from gym import spaces
 import numpy as np
+from baselines import deepq
 #from keras.models import Sequential
 
 class kpr_stock(gym.Env):
