@@ -2,8 +2,6 @@
 import gym
 from gym import spaces
 import numpy as np
-from baselines import deepq
-#from keras.models import Sequential
 
 class kpr_stock(gym.Env):
     
@@ -86,7 +84,8 @@ class kpr_stock(gym.Env):
         return None
 
 
-#調用強化學習庫  
+#测试环境
+'''
 gym.logger.set_level(40)
 env = kpr_stock()
 for i_episode in range(100):
@@ -101,3 +100,4 @@ for i_episode in range(100):
             break
 
 env.close()
+'''
