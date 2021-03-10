@@ -1,15 +1,15 @@
 import sys 
-sys.path.append("../../..")
+sys.path.append("../")
 
 import torch
 import numpy as np
-from Torch_rl.common.memory import ReplayMemory
-from Torch_rl.agent.core_value import Agent_value_based
+from common.memory import ReplayMemory
+from agent.core_value import Agent_value_based
 from copy import deepcopy
 from torch.optim import Adam
 from torch import nn
 import torch.nn.functional as F
-from Torch_rl.common.loss import huber_loss
+from common.loss import huber_loss
 from torch.autograd import Variable
 
 class Dueling_dqn(nn.Module):
