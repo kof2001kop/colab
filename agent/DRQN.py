@@ -1,12 +1,12 @@
 import torch
 import numpy as np
-from common.memory import ReplayMemory
-from agent.core_value import Agent_value_based
+from Torch_rl.common.memory import ReplayMemory_Sequence
+from Torch_rl.agent.core_value import Agent_value_based
 from copy import deepcopy
 from torch.optim import Adam
 from torch import nn
 import torch.nn.functional as F
-from common.loss import huber_loss
+from Torch_rl.common.loss import huber_loss
 from torch.autograd import Variable
 
 class Dueling_dqn(nn.Module):
@@ -33,11 +33,13 @@ class Dueling_dqn(nn.Module):
         return V - A
 
 
-class DQN_Agent(Agent_value_based):
+class DRQN_Agent(Agent_value_based):
     def __init__(self, env, model, policy,
                  ## hyper-parameter
-                 gamma=0.90, lr=1e-3, batch_size=32, buffer_size=50000, learning_starts=1000,
+                 gamma=0.90, lr=1e-3,  learning_starts=1000,
                  target_network_update_freq=500,
+                 ## memory
+                 batch_size=32, buffer_size=50000, max_seq_len=2000, replay_len=100,
                  ## decay
                  decay=False, decay_rate=0.9,
                  ## DDqn && DuelingDQN
@@ -93,7 +95,6 @@ class DQN_Agent(Agent_value_based):
         self.learning_starts = learning_starts
         self.target_network_update_freq = target_network_update_freq
         self.double_dqn = double_dqn
-
         if dueling_dqn:
             self.Q_net = Dueling_dqn(model, dueling_way)
         else:
@@ -107,20 +108,29 @@ class DQN_Agent(Agent_value_based):
         else:
             self.optim = q_net_optim
 
-        self.replay_buffer = ReplayMemory(buffer_size)
+        self.replay_buffer = ReplayMemory_Sequence(buffer_size, max_seq_len, other_record=["h","c"])
+
+        self.replay_buffer.batch_size = batch_size
+        self.replay_buffer.sequence_len = replay_len
+        if replay_len < max_seq_len:
+            self.replay_sample = self.replay_buffer.sample_sequence
+        else:
+            self.replay_sample = self.replay_buffer.sample_ep
         self.learning = False
-        super(DQN_Agent, self).__init__(path)
-        example_input = Variable(torch.rand((100,)+self.env.observation_space.shape))
+        super(DRQN_Agent, self).__init__(path)
+        example_input = Variable(torch.rand((replay_len, 100)+self.env.observation_space.shape))
         self.writer.add_graph(self.Q_net, input_to_model=example_input)
         self.forward_step_show_list = []
         self.backward_step_show_list =[]
         self.forward_ep_show_list = []
         self.backward_ep_show_list = []
 
+        self.h_state = model.init_H_C(1)
+
     def forward(self, observation):
-        observation = observation[np.newaxis, :].astype(np.float32)
+        observation = observation[np.newaxis, np.newaxis, :].astype(np.float32)
         observation = torch.from_numpy(observation)
-        Q_value = self.Q_net.forward(observation)
+        Q_value, self.h_state = self.Q_net.forward(observation, self.h_state)
         Q_value = Q_value.cpu().squeeze().detach().numpy()
         if self.policy is not None:
             action = self.policy.select_action(Q_value)
@@ -129,23 +139,27 @@ class DQN_Agent(Agent_value_based):
         return action, np.max(Q_value), {}
 
     def backward(self, sample_):
+        sample_["h"] = self.h_state[0].detach().numpy()
+        sample_["c"] = self.h_state[1].detach().numpy()
         self.replay_buffer.push(sample_)
         if self.step > self.learning_starts and self.learning:
-            sample = self.replay_buffer.sample(self.batch_size)
+            sample = self.replay_sample()
             if self.gpu:
                 for key in sample.keys():
                     sample[key] = sample[key].cuda()
-            assert len(sample["s"]) == self.batch_size
-            a = sample["a"].long().unsqueeze(1)
-            Q = self.Q_net(sample["s"]).gather(1, a)
+            assert sample["s"].size(1) == self.batch_size
+            a = sample["a"].long()
+            Q, H = self.Q_net(sample["s"])
+            Q  = Q.gather(2, a)
             if self.double_dqn:
-                _, next_actions = self.Q_net(sample["s_"]).max(1, keepdim=True)
-                targetQ = self.target_Q_net(sample["s_"]).gather(1, next_actions)
+                Q_next, H = self.Q_net(sample["s_"])
+                _, next_actions = Q_next.max(2, keepdim=True)
+                Qtarget_next, H = self.Q_net(sample["s_"])
+                targetQ = Qtarget_next.gather(2, next_actions)
             else:
-                _, next_actions = self.target_Q_net(sample["s_"]).max(1, keepdim=True)
-                targetQ = self.target_Q_net(sample["s_"]).gather(1, next_actions)
-            targetQ = targetQ.squeeze(1)
-            Q = Q.squeeze(1)
+                Qtarget_next, H = self.target_Q_net(sample["s_"])
+                targetQ, next_actions = Qtarget_next.max(2, keepdim=True)
+
             expected_q_values = sample["r"] + self.gamma * targetQ * (1.0 - sample["tr"])
             loss = torch.mean(huber_loss(expected_q_values-Q))
             self.optim.zero_grad()
@@ -173,11 +187,15 @@ class DQN_Agent(Agent_value_based):
                     "optim": self.optim
                     }, filepath+"DQN.pkl")
 
-
     def cuda(self):
         self.Q_net.to_gpu()
         self.target_Q_net = deepcopy(self.Q_net)
         self.gpu = True
+
+
+
+
+
 
 
 
