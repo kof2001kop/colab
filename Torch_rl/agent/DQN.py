@@ -1,5 +1,5 @@
 import sys 
-#sys.path.append("colab/")
+sys.path.append("colab/")
 
 import torch
 import numpy as np
