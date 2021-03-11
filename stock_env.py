@@ -55,6 +55,7 @@ class kpr_stock(gym.Env):
         else:
             reward = -10
 
+
         self.pre_all_money = self.cur_money + self.cur_stock_money
         self.state = np.array([self.pre_all_money, self.stock_data[self.t]])
         done = False
@@ -88,15 +89,19 @@ class kpr_stock(gym.Env):
 '''
 gym.logger.set_level(40)
 env = kpr_stock()
-for i_episode in range(100):
+for i_episode in range(500):
     observation = env.reset()
-    for t in range(30):
+    reward_sum = 0
+    save_step = []
+    for t in range(10):
         #print(observation)
         action = env.action_space.sample()
         observation, reward, done, info = env.step(action)
+        reward_sum += reward
+        save_step.append(action)
         #print(action, observation[0])
         if done:
-            print(observation[0])
+            print(observation[0], reward_sum, save_step)
             break
 
 env.close()
