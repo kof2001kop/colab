@@ -20,7 +20,7 @@ model = DenseNet(env.observation_space.shape[0], env.action_space.n, hidden_acti
 
 Agent = DQN_Agent(env, model, policy, gamma=0.99, lr=1e-3, path=path)
 
-Agent.train(max_step=5000, render=False, verbose=2)
-Agent.test(max_step=1000, render=False, verbose=2)
+Agent.train(max_step=5000, render=False, verbose=1)
+Agent.test(max_step=1000, render=False, verbose=1)
 
 Agent.save_weights("colab/")
