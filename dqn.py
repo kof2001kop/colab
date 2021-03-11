@@ -8,8 +8,8 @@ from stock_env import kpr_stock
 
 #%%
 envID = "CartPole-v0"
-env = gym.make(envID)
-#env = kpr_stock()
+#env = gym.make(envID)
+env = kpr_stock()
 
 nowtime = time.strftime('%y%m%d%H%M',time.localtime())
 path = "savedate" + '/' + envID + "dqn" + nowtime+'/'
