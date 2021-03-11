@@ -73,7 +73,7 @@ class kpr_stock(gym.Env):
 
 
     def load_stock_data(self):
-        return np.array([9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1])
+        return np.array([9,1,9,1,9,1])
     
     
     def render(self, mode='human'):
