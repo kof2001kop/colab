@@ -7,7 +7,7 @@ from Torch_rl.common.Policy_for_DQN import MaxBoltzmannQPolicy
 from stock_env import kpr_stock
 
 #%%
-envID = "CartPole-v0"
+envID = "kpr_stock"
 #env = gym.make(envID)
 env = kpr_stock()
 
