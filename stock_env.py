@@ -47,14 +47,9 @@ class kpr_stock(gym.Env):
                     
                    
         self.t += 1
+        profit = self.cur_money + self.cur_stock_money - self.pre_all_money
         
-        if self.cur_money + self.cur_stock_money - self.pre_all_money > 0:
-            reward = 10
-        elif self.cur_money + self.cur_stock_money - self.pre_all_money == 0:
-            reward = 0
-        else:
-            reward = -10
-
+        reward = profit
 
         self.pre_all_money = self.cur_money + self.cur_stock_money
         self.state = np.array([self.pre_all_money, self.stock_data[self.t]])
@@ -86,10 +81,10 @@ class kpr_stock(gym.Env):
 
 
 #测试环境
-'''
+
 gym.logger.set_level(40)
 env = kpr_stock()
-for i_episode in range(500):
+for i_episode in range(1000):
     observation = env.reset()
     reward_sum = 0
     save_step = []
@@ -101,8 +96,7 @@ for i_episode in range(500):
         save_step.append(action)
         #print(action, observation[0])
         if done:
-            print(observation[0], reward_sum, save_step)
+            print(observation[0], reward_sum)
             break
 
 env.close()
-'''
