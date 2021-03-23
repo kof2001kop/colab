@@ -15,3 +15,5 @@ class simpleNet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         return x
+
+test = simpleNet(1, 2, 3, 4)
