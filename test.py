@@ -16,4 +16,4 @@ class simpleNet(nn.Module):
         x = self.layer3(x)
         return x
 
-test = simpleNet(1, 2, 3, 4)
+print nn.Linear(1, 1);
