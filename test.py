@@ -1,3 +1,3 @@
 import torch
 
-print (torch.randn(3))
+print (torch.empty(3))
