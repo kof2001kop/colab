@@ -13,7 +13,7 @@ y_tag = torch.where(y_t > 0, one, zero)
 
 #print (x_input)
 #print (y_tag)
-
+print (net(x_input))
 
 '''
 x1_t = torch.normal(2*torch.ones(10,2),1)
@@ -26,7 +26,7 @@ x_input = torch.cat((x1_t,x2_t),0)
 y_tag = torch.cat((y1_t,y2_t),0)
 '''
 
-
+'''
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
@@ -58,3 +58,4 @@ for epoch in range(num_epoch):
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
 torch.save(net,'colab/net.pkl')
+'''
