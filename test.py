@@ -1,18 +1,18 @@
 import torch
 import torch.nn as nn
 
-x1_t = (10 * torch.randn(10000)).ceil();
-x2_t = (10 * torch.randn(10000)).ceil();
+x1_t = (10 * torch.randn(100)).ceil();
+x2_t = (10 * torch.randn(100)).ceil();
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
-zero = torch.zeros_like(y_t)
+zero = -1 * torch.ones_like(y_t)
 one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
 
-#print (x_input)
-#print (y_tag)
+print (x_input)
+print (y_tag)
 
 '''
 x1_t = torch.normal(2*torch.ones(10,2),1)
@@ -25,7 +25,7 @@ x_input = torch.cat((x1_t,x2_t),0)
 y_tag = torch.cat((y1_t,y2_t),0)
 '''
 
-
+'''
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
@@ -40,7 +40,7 @@ loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函�
 
 
 # 模型训练
-num_epoch = 100000 # 最大迭代更新次数
+num_epoch = 10000 # 最大迭代更新次数
 for epoch in range(num_epoch):
     y_p = net(x_input)  # 喂数据并前向传播
 
@@ -57,3 +57,4 @@ for epoch in range(num_epoch):
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
 torch.save(net,'colab/net.pkl')
+'''
