@@ -10,8 +10,9 @@ zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
-print (x_input)
-print (y_tag)
+
+#print (x_input)
+#print (y_tag)
 
 
 '''
@@ -25,7 +26,7 @@ x_input = torch.cat((x1_t,x2_t),0)
 y_tag = torch.cat((y1_t,y2_t),0)
 '''
 
-'''
+
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
@@ -56,4 +57,3 @@ for epoch in range(num_epoch):
     if epoch % 1000 == 0:
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
-'''
