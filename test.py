@@ -18,8 +18,8 @@ y1_t = torch.zeros(10)
 x2_t = torch.normal(-2*torch.ones(10,2),1)
 y2_t = torch.ones(10)
 
-x_t = torch.cat((x1_t,x2_t),0)
-y_t = torch.cat((y1_t,y2_t),0)
+x_input = torch.cat((x1_t,x2_t),0)
+y_tag = torch.cat((y1_t,y2_t),0)
 
 
 net = nn.Sequential(
@@ -48,9 +48,9 @@ loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函�
 # 模型训练
 num_epoch = 10000 # 最大迭代更新次数
 for epoch in range(num_epoch):
-    y_p = net(x_t)  # 喂数据并前向传播
+    y_p = net(x_input)  # 喂数据并前向传播
 
-    loss = loss_func(y_p,y_t.long()) # 计算损失
+    loss = loss_func(y_p,y_tag.long()) # 计算损失
     '''
     PyTorch默认会对梯度进行累加，因此为了不使得之前计算的梯度影响到当前计算，需要手动清除梯度。
     pyTorch这样子设置也有许多好处，但是由于个人能力，还没完全弄懂。
