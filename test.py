@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-x1_t = (10 * torch.randn(10)).ceil();
-x2_t = (10 * torch.randn(10)).ceil();
+x1_t = (10 * torch.randn(1000000)).ceil();
+x2_t = (10 * torch.randn(1000000)).ceil();
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
@@ -11,8 +11,8 @@ one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
 
-print (x_input)
-print (y_tag)
+#print (x_input)
+#print (y_tag)
 
 '''
 x1_t = torch.normal(2*torch.ones(10,2),1)
@@ -35,7 +35,7 @@ net = nn.Sequential(
     nn.Softmax(dim=1) # 由于有两个概率输出，因此对其使用Softmax进行概率归一化
 )
 
-'''
+
 # 配置损失函数和优化器
 optimizer = torch.optim.SGD(net.parameters(),lr=0.01) # 优化器使用随机梯度下降，传入网络参数和学习率
 loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函数
@@ -58,4 +58,3 @@ for epoch in range(num_epoch):
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
 torch.save(net,'colab/net.pkl')
-'''
