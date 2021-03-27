@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-x1_t = 10 * torch.randn(100);
+x1_t = (10 * torch.randn(100)).ceil();
 x2_t = 10 * torch.randn(100);
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
@@ -10,7 +10,7 @@ zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
-print (x1_t.ceil())
+print (x1_t)
 
 
 '''
