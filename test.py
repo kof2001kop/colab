@@ -7,8 +7,8 @@ x_t = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
 
-zero = torch.zeros_like(x_t)
-one = torch.ones_like(x_t)
+zero = torch.zeros_like(y_t)
+one = torch.ones_like(y_t)
 
 a = torch.where(y_t > 0, one, zero)
 
