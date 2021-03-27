@@ -54,6 +54,6 @@ for epoch in range(num_epoch):
     loss.backward()  # 计算梯度，误差回传
     optimizer.step()  # 根据计算的梯度，更新网络中的参数
 
-    if epoch % 1000 == 0:
+    if epoch % 10000 == 0:
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
