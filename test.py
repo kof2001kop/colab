@@ -1,15 +1,25 @@
 import torch
 import torch.nn as nn
 
-x_t = torch.randn(10);
-y_t = 2 * x_t
+#x_t = torch.randn(10);
+#y_t = 2 * x_t
+
+x1_t = torch.normal(2*torch.ones(100,2),1)
+y1_t = torch.zeros(100)
+
+x2_t = torch.normal(-2*torch.ones(100,2),1)
+y2_t = torch.ones(100)
+
+x_t = torch.cat((x1_t,x2_t),0)
+y_t = torch.cat((y1_t,y2_t),0)
+
 
 net = nn.Sequential(
-    nn.Linear(1,5),  # 输入层与第一隐层结点数设置，全连接结构
+    nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
     nn.Linear(5,5),  # 第一隐层与第二隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
-    nn.Linear(5,1),  # 第二隐层与输出层层结点数设置，全连接结构
+    nn.Linear(5,2),  # 第二隐层与输出层层结点数设置，全连接结构
     nn.Softmax(dim=1) # 由于有两个概率输出，因此对其使用Softmax进行概率归一化
 )
 
