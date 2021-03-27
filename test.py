@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-x1_t = (10 * torch.randn(100)).ceil();
-x2_t = (10 * torch.randn(100)).ceil();
+x1_t = (10 * torch.randn(1000)).ceil();
+x2_t = (10 * torch.randn(1000)).ceil();
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
@@ -41,7 +41,7 @@ optimizer = torch.optim.SGD(net.parameters(),lr=0.01) # 优化器使用随机梯
 loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函数
 
 # 模型训练
-num_epoch = 10000 # 最大迭代更新次数
+num_epoch = 100000 # 最大迭代更新次数
 for epoch in range(num_epoch):
     y_p = net(x_input)  # 喂数据并前向传播
 
