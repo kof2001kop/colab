@@ -1,4 +1,4 @@
-import torch.nn
+import torch.nn.*
 
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
