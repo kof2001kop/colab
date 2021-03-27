@@ -11,6 +11,7 @@ one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
 print (x_input)
+print (y_tag)
 
 
 '''
