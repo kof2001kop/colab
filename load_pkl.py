@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-x = torch.tensor([[-2., -3.]])
+x = torch.tensor([[-2., -4.]])
 
 net = torch.load('colab/net.pkl')
 result = net(x)
