@@ -9,4 +9,4 @@ net = nn.Sequential(
     nn.Linear(5,2),  
     nn.Softmax(dim=1) )
 
-#net.load_state_dict(torch.load('colab/net.pkl')
+net.load_state_dict(torch.load('colab/net.pkl'))
