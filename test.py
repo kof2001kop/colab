@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-'''
+
 x1_t = torch.randn(10000);
 x2_t = torch.randn(10000);
 x_input = torch.stack([x1_t, x2_t],dim=1)
@@ -10,8 +10,8 @@ zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
-'''
 
+'''
 x1_t = torch.normal(2*torch.ones(10,2),1)
 y1_t = torch.zeros(10)
 
@@ -20,7 +20,7 @@ y2_t = torch.ones(10)
 
 x_input = torch.cat((x1_t,x2_t),0)
 y_tag = torch.cat((y1_t,y2_t),0)
-
+'''
 
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
