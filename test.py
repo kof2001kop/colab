@@ -10,7 +10,7 @@ zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
 y_tag = torch.where(y_t > 0, one, zero)
-print (torch.ones(10,2))
+print (2 * torch.ones(10,2))
 
 
 '''
