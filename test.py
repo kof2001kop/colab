@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+'''
 x1_t = torch.randn(10000);
 x2_t = torch.randn(10000);
 x_input = torch.stack([x1_t, x2_t],dim=1)
@@ -13,8 +13,8 @@ y_tag = torch.where(y_t > 0, one, zero)
 
 #print (x_input)
 #print (y_tag)
-
 '''
+
 x1_t = torch.normal(2*torch.ones(10,2),1)
 y1_t = torch.zeros(10)
 
@@ -23,7 +23,7 @@ y2_t = torch.ones(10)
 
 x_input = torch.cat((x1_t,x2_t),0)
 y_tag = torch.cat((y1_t,y2_t),0)
-'''
+
 
 
 net = nn.Sequential(
