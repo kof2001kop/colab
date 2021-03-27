@@ -16,5 +16,5 @@ x_t = torch.cat((x1_t,x2_t),0)
 
 print (x1_t)
 print (x2_t)
-print (xt_t)
+print (x_t)
 
