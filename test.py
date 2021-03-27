@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-x1_t = (10 * torch.randn(100000)).ceil();
-x2_t = (10 * torch.randn(100000)).ceil();
+x1_t = (10 * torch.randn(10000)).ceil();
+x2_t = (10 * torch.randn(10000)).ceil();
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
