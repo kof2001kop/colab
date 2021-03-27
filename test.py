@@ -6,7 +6,11 @@ x2_t = torch.randn(10);
 x_t = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
-a = torch.where(y_t > 0, one, zero)
+
+zero = torch.zeros_like(x_t)
+one = torch.ones_like(x_t)
+
+a = torch.where(x_t > 0, one, zero)
 
 
 print (x1_t)
