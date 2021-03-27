@@ -10,11 +10,12 @@ y_t = x1_t * x2_t
 zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
-a = torch.where(y_t > 0, one, zero)
-
+left = torch.where(y_t > 0, one, zero)
+right = torch.where(y_t > 0, zero, one)
 
 print (x1_t)
 print (x2_t)
 print (y_t)
-print (a)
+print (left)
+print (right)
 
