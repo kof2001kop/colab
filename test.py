@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-x1_t = (10 * torch.randn(1000000)).ceil();
-x2_t = (10 * torch.randn(1000000)).ceil();
+x1_t = (10 * torch.randn(100000)).ceil();
+x2_t = (10 * torch.randn(100000)).ceil();
 x_input = torch.stack([x1_t, x2_t],dim=1)
 
 y_t = x1_t * x2_t
@@ -29,8 +29,6 @@ y_tag = torch.cat((y1_t,y2_t),0)
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
-    nn.Linear(5,5),  # 第一隐层与第二隐层结点数设置，全连接结构
-    torch.nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
     nn.Linear(5,2),  # 第二隐层与输出层层结点数设置，全连接结构
     nn.Softmax(dim=1) # 由于有两个概率输出，因此对其使用Softmax进行概率归一化
 )
@@ -40,8 +38,9 @@ net = nn.Sequential(
 optimizer = torch.optim.SGD(net.parameters(),lr=0.01) # 优化器使用随机梯度下降，传入网络参数和学习率
 loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函数
 
+
 # 模型训练
-num_epoch = 100000 # 最大迭代更新次数
+num_epoch = 10000 # 最大迭代更新次数
 for epoch in range(num_epoch):
     y_p = net(x_input)  # 喂数据并前向传播
 
@@ -54,7 +53,7 @@ for epoch in range(num_epoch):
     loss.backward()  # 计算梯度，误差回传
     optimizer.step()  # 根据计算的梯度，更新网络中的参数
 
-    if epoch % 10000 == 0:
+    if epoch % 1000 == 0:
         print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
 
 torch.save(net,'colab/net.pkl')
