@@ -9,5 +9,7 @@ net = nn.Sequential(
     nn.Softmax(dim=1) # 由于有两个概率输出，因此对其使用Softmax进行概率归一化，dim=1代表行归一化
 )
 
-print(net)
+# 配置损失函数和优化器
+optimizer = torch.optim.SGD(net.parameters(),lr=0.01) # 优化器使用随机梯度下降，传入网络参数和学习率
+loss_func = torch.nn.CrossEntropyLoss() # 损失函数使用交叉熵损失函数
 
