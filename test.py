@@ -9,7 +9,7 @@ y_t = x1_t * x2_t
 zero = torch.zeros_like(y_t)
 one = torch.ones_like(y_t)
 
-y_tag = torch.where(y_t >= 0, one, zero)
+y_tag = torch.where(y_t > 0, one, zero)
 
 #print (x_input)
 #print (y_tag)
