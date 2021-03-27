@@ -8,5 +8,5 @@ x2_t = torch.randn(10);
 
 print (x1_t)
 print (x2_t)
-print (torch.cat([x1_t, x2_t],dim=0))
+print (torch.stack([x1_t, x2_t],dim=0))
 
