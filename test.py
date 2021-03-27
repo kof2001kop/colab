@@ -9,7 +9,5 @@ net = nn.Sequential(
     nn.Softmax(dim=1) # 由于有两个概率输出，因此对其使用Softmax进行概率归一化，dim=1代表行归一化
 )
 
-
-
- print(net)
+print(net)
 
