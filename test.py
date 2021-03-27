@@ -4,7 +4,6 @@ import torch.nn as nn
 x_t = torch.empty(10).range(100);
 print(x_t)
 
-'''
 net = nn.Sequential(
     nn.Linear(2,5),  # 输入层与第一隐层结点数设置，全连接结构
     nn.Sigmoid(),  # 第一隐层激活函数采用sigmoid
@@ -34,4 +33,3 @@ for epoch in range(num_epoch):
     #if epoch % 1000 == 0:
     #    print('epoch: {}, loss: {}'.format(epoch, loss.data.item()))
         
-'''
