@@ -7,7 +7,7 @@
 #include <vector>
 #include <utility>
 #include <tuple>
-using namespace std;
+using namespace std
 
 tuple<int, int, double, double, double, double, double, double, double, double, double> explode(string const & s, char delim)
 {
